@@ -6,7 +6,7 @@ class App extends Component {
     return (
       <div>
         <header>
-          <h1>Welcome to React Good Jobs</h1>
+          <h1>Welcome to React Good Jobs hello</h1>
         </header>
         <p>
           To get started, edit and save to reload.

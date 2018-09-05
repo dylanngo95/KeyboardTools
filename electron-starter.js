@@ -7,6 +7,9 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const url = require('url');
 
+// keyboard hook
+const ioHook = require('iohook');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -30,7 +33,7 @@ function createWindow() {
     });
     mainWindow.loadURL(startUrl);
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
@@ -40,9 +43,17 @@ function createWindow() {
         mainWindow = null
     })
 
-    mainWindow.setSimpleFullScreen(true);
+    // mainWindow.setSimpleFullScreen(true);
     mainWindow.setResizable(false);
-    mainWindow.setIgnoreMouseEvents(true);
+    // mainWindow.setIgnoreMouseEvents(true);
+
+    mainWindow.on('keyup', (event) => {
+        console.log(event);
+    });
+
+    mainWindow.on('keydown', (event) => {
+        console.log(event);
+    });
 
 }
 
@@ -70,3 +81,9 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+ioHook.on("keyup", event => {
+    console.log(event); // {keychar: 'f', keycode: 19, rawcode: 15, type: 'keup'}
+ });
+ 
+ ioHook.start();
